@@ -86,7 +86,7 @@ void print_word_ladder(const vector<std::string>& ladder) {
         std::cout << ladder[i];
         if (i < ladder.size() - 1) cout << " ";
     }
-    std::cout << std::endl;
+    std::cout << " " <<std::endl;
 }
 
 void verify_word_ladder() {
