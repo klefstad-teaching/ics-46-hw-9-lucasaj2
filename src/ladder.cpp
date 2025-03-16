@@ -14,7 +14,6 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
 
 	while (str1_index < len1 && str2_index < len2) {
 		if (str1[str1_index] != str2[str2_index]) {
-			++edits;
 			if (++edits > d) return false;
 			if (len1 > len2) ++str1_index;
 			else if (len1 < len2) ++str2_index;
@@ -38,18 +37,19 @@ vector<string> generate_word_ladder(const std::string& begin_word, const std::st
     }
 	
 	std::queue<std::vector<std::string>> ladder_queue;
-	ladder_queue.push({begin_word});
 	std::set<std::string> visited;
+	
+	ladder_queue.push({begin_word});
 	visited.insert(begin_word);
 
 	while(!ladder_queue.empty()) {
 		std::vector<std::string> ladder = ladder_queue.front();
 		ladder_queue.pop();
-		std::string last_word = ladder.empty() ? "" : ladder.back();
+		
+		std::string last_word = ladder.back();
 
-		for (std::string word : word_list) {
+		for (const std::string& word : word_list) {
 			if (is_adjacent(last_word, word) && !visited.count(word)) {
-				visited.insert(word);
 				std::vector<std::string> new_ladder = ladder;
 				new_ladder.push_back(word);
 				
@@ -81,9 +81,10 @@ void print_word_ladder(const vector<std::string>& ladder) {
         std::cout << "No word ladder found." << std::endl;
         return;
     }
+	std::cout << "Word ladder found: ";
 	for (size_t i = 0; i < ladder.size(); ++i) {
-        cout << ladder[i];
-        if (i < ladder.size() - 1) cout << " -> ";
+        std::cout << ladder[i];
+        if (i < ladder.size() - 1) cout << " ";
     }
     std::cout << std::endl;
 }
