@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
 
+#sudo apt-get install -y libgtest-dev libgmock-dev
+#Added: add_compile_options("-fsanitize=address,undefined")     link_libraries("-fsanitize=address,undefined")
+#cmake -B build -S .
+#cmake --build build
+
+
 project(HW9 CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -25,6 +31,9 @@ add_executable(ladder_main
   ${LADDER_SRC_FILES}
   src/ladder_main.cpp
 )
+
+add_compile_options("-fsanitize=address,undefined")
+link_libraries("-fsanitize=address,undefined")
 
 find_package(GTest)
 if (GTest_FOUND)
