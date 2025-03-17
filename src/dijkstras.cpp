@@ -15,6 +15,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
 	int n = G.numVertices;
 	std::vector<int> distance(n, INF);
 	std::vector<bool> visited(n, false);
+	previous.assign(n, -1);
 	std::priority_queue<Node, std::vector<Node>, greater<Node>> pq;
 
 	distance[source] = 0;
@@ -43,13 +44,13 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
 }
 
 vector<int> extract_shortest_path(const vector<int>& distances /*distances*/, const vector<int>& previous, int destination) {
-	std::vector<int> path;
+	vector<int> path;
     if (distances[destination] == INF) return path;
     
     for (int at = destination; at != -1; at = previous[at]) {
         path.push_back(at);
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
     return path;
 }
 
